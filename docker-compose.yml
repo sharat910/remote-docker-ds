@@ -2,11 +2,10 @@ version: '3'
 services:
   ds:
     build: .
-    entrypoint: ./entrypoint.sh 
     ports:
       - "8080:8888"
-    volumes: 
+    volumes:
       - "$PWD/data:/app/data"
       - "$PWD/notebooks:/app/notebooks"
     environment:
-      - JUPYTER_TOKEN=dsrocks
+      - JUPYTER_TOKEN=remoteds

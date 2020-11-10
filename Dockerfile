@@ -1,15 +1,14 @@
-FROM continuumio/miniconda3
+FROM continuumio/anaconda3
 
 WORKDIR /app
 
-# RUN conda create -n ds jupyter pandas numpy scikit-learn matplotlib seaborn -y
+RUN conda update -n base -c defaults conda && \
+    conda install -c conda-forge jupyterlab && \
+    conda install pandas numpy scikit-learn matplotlib seaborn plotly "ipywidgets=7.5" -y && \
+    conda clean --all --yes
 
-# RUN conda env export --name ds > environment.yml
+RUN jupyter labextension install jupyterlab-plotly@4.12.0 @jupyter-widgets/jupyterlab-manager plotlywidget@4.12.0
 
-COPY environment.yml .
+RUN python3 -m pip install -U kaleido
 
-RUN conda env create -f environment.yml
-
-# RUN echo "source activate ds" > ~/.bashrc
-
-CMD ["/bin/bash"]
+CMD [ "jupyter", "lab", "--ip='*'", "--port=8888",  "--no-browser", "--allow-root"]
