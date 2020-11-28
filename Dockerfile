@@ -3,7 +3,7 @@ FROM continuumio/anaconda3
 WORKDIR /app
 
 RUN conda update -n base -c defaults conda && \
-    conda install -c conda-forge jupyterlab && \
+    conda install -c conda-forge jupyterlab "nodejs>=10.0.0" && \
     conda install pandas numpy scikit-learn matplotlib seaborn plotly "ipywidgets=7.5" -y && \
     conda clean --all --yes
 
